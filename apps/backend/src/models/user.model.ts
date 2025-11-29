@@ -5,6 +5,7 @@ export const UserSchema = new Schema({
     fullname: String, 
     email:{
         type: String, 
+        unique:true,
         validate: {
       validator: (v:string) => /\S+@\S+\.\S+/.test(v),
       message: (props:any) => `${props.value} is not a valid email!`,

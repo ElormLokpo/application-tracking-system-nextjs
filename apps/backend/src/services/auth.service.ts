@@ -1,20 +1,24 @@
 import { Role, StatusCodes } from "../../../../packages/types";
 import { LoginDto, RegisterDto, UserResponse } from "../dtos/auth.dto";
 import { UserModel } from "../models/user.model";
-import { verifyPassword } from "../utils/bcryptHash";
+import { hashPassword, verifyPassword } from "../utils/bcryptHash";
 import { CustomError } from "../utils/customError";
 import { generateToken } from "../utils/jwtHandler";
 
 
 export const registerUser = async (request: RegisterDto)=>{
     const {fullname, email, password, role} = request;
-    const user = await UserModel.create({fullname, email, password, role});
-
+    
     const userExist = await UserModel.findOne({email});
+    
+    
     if(userExist){
         throw new CustomError(StatusCodes.CONFLICT, `User with email ${email} already exists`);
     }
+    
+    const hashedPassword = await hashPassword(password);
 
+    const user = await UserModel.create({fullname, email, password:hashedPassword, role});
     const userReponse:UserResponse = {
         id:user._id as unknown,
         fullname:user.fullname as string,
