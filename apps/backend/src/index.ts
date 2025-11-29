@@ -2,8 +2,8 @@ import express, {Express} from "express";
 import mongoose from "mongoose";
 
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.routes";
-import { errorMiddleware } from "./middleware/error.middleware";
+import {authRoutes} from "./routes/index.ts";
+import { errorMiddleware } from "./middleware";
 
 dotenv.config();
 

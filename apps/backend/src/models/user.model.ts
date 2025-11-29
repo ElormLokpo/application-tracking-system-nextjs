@@ -1,5 +1,4 @@
 import {Schema, model} from "mongoose"
-import {hashPassword} from "../utils/bcryptHash";
 import { Role } from "../../../../packages/types";
 
 export const UserSchema = new Schema({
