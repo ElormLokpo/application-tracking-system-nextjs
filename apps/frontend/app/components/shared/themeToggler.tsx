@@ -21,6 +21,6 @@ export function ThemeToggle() {
   }
 
   return (
-      <button className="text-xs border p-2 rounded-full" onClick={handleThemeToggle}>{theme === "dark" ? <TiWeatherPartlySunny /> : <FiMoon />}</button>
+      <button className="text-xs border p-2 rounded-full hover:cursor-pointer" onClick={handleThemeToggle}>{theme === "dark" ? <TiWeatherPartlySunny /> : <FiMoon />}</button>
   )
 }

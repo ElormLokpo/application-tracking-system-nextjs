@@ -65,3 +65,10 @@ export const AuthUserSchema = z.object({
 })
 
 export type AuthUserSchemaType = z.infer<typeof AuthUserSchema>
+
+export const RegisterUserSchema = AuthUserSchema.extend({
+    fullname: z.string().min(1, { message: "Fullname is required" })
+   
+})
+
+export type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>

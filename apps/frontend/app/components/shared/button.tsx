@@ -7,6 +7,7 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
     className?: string;
     children: ReactNode;
     onClick?: () => void;
+    type?: "button" | "submit" | "reset";
 }
 
 const buttonVariants = cva("", {
@@ -23,9 +24,9 @@ const buttonVariants = cva("", {
     }
 })
 
-export const Button = ({variant, className, children, onClick}: ButtonProps) => {
+export const Button = ({variant, className, children, onClick, type}: ButtonProps) => {
     return (
-        <button className={cn(buttonVariants({variant}), className)} onClick={onClick}>
+        <button type={type} className={cn(buttonVariants({variant}), className)} onClick={onClick}>
             {children}
         </button>
     )

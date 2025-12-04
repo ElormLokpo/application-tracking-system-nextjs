@@ -13,7 +13,7 @@ interface InputProps<T extends FieldValues> extends VariantProps<typeof inputVar
     errors?: FieldErrors<T>
     label?: string,
     name: Path<T>,
-    placeholder?: string
+    placeholder?: string,
 }
 
 
@@ -51,9 +51,8 @@ export const Input = <T extends FieldValues>({
                     <Typography className="mb-1" text={label} size="xs" />
                 </label>}
                 <input
-                    placeholder={placeholder
-
-                    }
+                    
+                    placeholder={placeholder}
                     type={fieldType}
                     className={cn(inputVariants({ variant }), className, errors?.[name] && "border-red-500")}
                     {...(register ? register(name) : {})} />
