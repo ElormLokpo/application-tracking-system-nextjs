@@ -1,3 +1,5 @@
+import z from "zod"
+
 export enum Role {
     APPLICANT = "APPLICANT",
     ADMIN = "ADMIN",
@@ -53,3 +55,13 @@ export enum StatusCodes {
   SERVICE_UNAVAILABLE = 503,
   GATEWAY_TIMEOUT = 504,
 }
+
+
+
+
+export const AuthUserSchema = z.object({
+    email: z.email("Invalid email address").min(1,{message:"Email is required"}),
+    password: z.string().min(1,{message:"Password is required"}),
+})
+
+export type AuthUserSchemaType = z.infer<typeof AuthUserSchema>

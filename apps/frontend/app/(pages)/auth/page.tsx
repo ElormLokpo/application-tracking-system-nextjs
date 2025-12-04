@@ -5,14 +5,23 @@ import { Button } from "@/app/components/shared/button";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { AuthUserSchemaType, AuthUserSchema } from "../../../../../packages/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/app/hooks/authHook";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(false)
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm({
+        resolver: zodResolver(AuthUserSchema)
+    });
+
+    const {mutate:loginUser} = useLogin()
 
 
-    const submitHandler = (data: any) => { //remember to change any type
-
+    const submitHandler = async (data: AuthUserSchemaType) => { //remember to change any type
+    
+       if (isLogin) await loginUser(data);
+       
     }
 
     return (
@@ -30,11 +39,11 @@ export default function AuthPage() {
                 <form onSubmit={handleSubmit(submitHandler)}>
 
                     <div className="mb-2">
-                        <Input placeholder="Enter email" name="name" register={register} errors={errors} variant="auth" />
+                        <Input fieldType="email" placeholder="Enter email" name="email" register={register} errors={errors} variant="auth" />
                     </div>
 
                     <div className="mb-2">
-                        <Input placeholder="Enter password" name="name" register={register} errors={errors} variant="auth" />
+                        <Input fieldType="password" placeholder="Enter password" name="password" register={register} errors={errors} variant="auth" />
                     </div>
 
                     <div className="mb-4">

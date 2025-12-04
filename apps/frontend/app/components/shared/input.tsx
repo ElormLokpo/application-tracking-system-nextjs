@@ -5,14 +5,14 @@ import { FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form
 import { Typography } from "./typography";
 
 
-interface InputProps extends VariantProps<typeof inputVariants> {
+interface InputProps<T extends FieldValues> extends VariantProps<typeof inputVariants> {
     className?: string;
     inputType?: string;
     fieldType?: string;
-    register?: UseFormRegister<FieldValues>,
-    errors?: FieldErrors<FieldValues>
+    register?: UseFormRegister<T>,
+    errors?: FieldErrors<T>
     label?: string,
-    name: Path<FieldValues>,
+    name: Path<T>,
     placeholder?: string
 }
 
@@ -32,7 +32,7 @@ const inputVariants = cva("",
 );
 
 
-export const Input = ({
+export const Input = <T extends FieldValues>({
     variant,
     className,
     inputType = "text",
@@ -42,7 +42,7 @@ export const Input = ({
     label,
     placeholder,
     errors
-}: InputProps) => {
+}: InputProps<T>) => {
 
     const inputTypes: Record<string, ReactNode> = {
         text: (
@@ -52,11 +52,17 @@ export const Input = ({
                 </label>}
                 <input
                     placeholder={placeholder
-                        
+
                     }
                     type={fieldType}
-                    className={cn(inputVariants({ variant }), className)}
+                    className={cn(inputVariants({ variant }), className, errors?.[name] && "border-red-500")}
                     {...(register ? register(name) : {})} />
+
+                {
+                    errors?.[name] && (
+                        <Typography text={errors?.[name].message?.toString()} size="xs" className="text-red-500 dark:text-red-400" />
+                    )
+                }
             </div>
         )
     }
