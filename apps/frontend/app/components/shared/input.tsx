@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/app/lib/utils";
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 import { FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { Typography } from "./typography";
 
@@ -14,6 +14,7 @@ interface InputProps<T extends FieldValues> extends VariantProps<typeof inputVar
     label?: string,
     name: Path<T>,
     placeholder?: string,
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 
@@ -41,7 +42,8 @@ export const Input = <T extends FieldValues>({
     register,
     label,
     placeholder,
-    errors
+    errors,
+    onChange
 }: InputProps<T>) => {
 
     const inputTypes: Record<string, ReactNode> = {
@@ -51,7 +53,7 @@ export const Input = <T extends FieldValues>({
                     <Typography className="mb-1" text={label} size="xs" />
                 </label>}
                 <input
-                    
+                  
                     placeholder={placeholder}
                     type={fieldType}
                     className={cn(inputVariants({ variant }), className, errors?.[name] && "border-red-500")}
@@ -62,6 +64,21 @@ export const Input = <T extends FieldValues>({
                         <Typography text={errors?.[name].message?.toString()} size="xs" className="text-red-500 dark:text-red-400" />
                     )
                 }
+            </div>
+        ),
+        textNForm: (
+            <div>
+                {label && <label className="mb-1" htmlFor={name}>
+                    <Typography className="mb-1" text={label} size="xs" />
+                </label>}
+                <input
+                  onChange={(e) => onChange?.(e)}
+                    placeholder={placeholder}
+                    type={fieldType}
+                    className={cn(inputVariants({ variant }), className)}
+                   />
+
+                
             </div>
         )
     }

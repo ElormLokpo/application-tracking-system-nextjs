@@ -1,13 +1,15 @@
 import { cn } from "@/app/lib/utils";
-import {cva, type VariantProps} from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
 
 
 interface ButtonProps extends VariantProps<typeof buttonVariants> {
     className?: string;
     children: ReactNode;
-    onClick?: () => void;
+    onClick?: (() => void) | ((data: unknown) => unknown);
     type?: "button" | "submit" | "reset";
+    isLoading?:boolean;
+    loadingText?: string | ReactNode;
 }
 
 const buttonVariants = cva("", {
@@ -24,10 +26,10 @@ const buttonVariants = cva("", {
     }
 })
 
-export const Button = ({variant, className, children, onClick, type}: ButtonProps) => {
+export const Button = ({ variant, className, children, onClick, type, isLoading, loadingText }: ButtonProps) => {
     return (
-        <button type={type} className={cn(buttonVariants({variant}), className)} onClick={onClick}>
-            {children}
+        <button type={type} className={cn(buttonVariants({ variant }), className)} onClick={onClick}>
+            {isLoading ? loadingText : children}
         </button>
     )
 }

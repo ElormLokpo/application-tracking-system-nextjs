@@ -23,7 +23,7 @@ export default function AuthPage() {
     const dispatch: AppDispatch = useDispatch()
     const router = useRouter();
 
-    const { mutateAsync: loginUser } = useLogin()
+    const { mutateAsync: loginUser, isPending } = useLogin()
 
     const registerData = useSelector((state: RootState) => state.register)
 
@@ -68,7 +68,7 @@ export default function AuthPage() {
                     </div>
 
                     <div className="mb-1">
-                        <Button type="submit" variant="auth" className="w-full">
+                        <Button isLoading={isPending} loadingText={isLogin ? <Typography className="dark:text-black font-semibold text-white" text="Logging into account..." /> : <Typography className="dark:text-black text-white" text="Registering account..." />} type="submit" variant="auth" className="w-full">
                             {isLogin ? <Typography className="dark:text-black font-semibold text-white" text="Login" /> : <Typography className="dark:text-black text-white" text="Register" />}
                         </Button>
                     </div>
