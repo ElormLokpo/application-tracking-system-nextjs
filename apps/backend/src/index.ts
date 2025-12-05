@@ -4,10 +4,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import {authRoutes} from "./routes/index.ts";
 import { errorMiddleware } from "./middleware";
+import cors from "cors";
 
 dotenv.config();
 
 const APP:Express = express();
+APP.use(cors({
+    origin: "*",
+    methods: ["POST", "GET", "PUT", "PATCH", "DELETE", "OPTIONS"],
+}));
+
 APP.use(express.json());
 APP.use(express.urlencoded({extended:true}));
 

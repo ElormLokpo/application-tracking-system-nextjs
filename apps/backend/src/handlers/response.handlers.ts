@@ -28,7 +28,7 @@ export class ResponseHandler{
     }
 
     errorDataHandler( message:string){
-        this.response.status(500).json({
+        this.response.status(200).json({
             success:false,
             message
         })
