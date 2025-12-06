@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { LoginDto, RegisterDto } from "../dtos";
-import { loginUser, registerUser } from "../services";
+import { loginUser, registerUser, sendPasswordResetOtp, updateUserPassword, validateOtp } from "../services";
 import { CustomError } from "../utils/";
 import { ResponseHandler } from "../handlers";
 
@@ -23,4 +23,28 @@ export const loginController = async (req:Request<{},{},LoginDto>, res:Response,
     }
 
     return new ResponseHandler(res).successDataHandler(token, "User logged in successfully");
+}
+
+
+export const sendPasswordResetOtpController = async (req:Request, res:Response, next:NextFunction)=>{
+    await sendPasswordResetOtp(req.body.email as string);
+
+   
+
+    return new ResponseHandler(res).successDataHandler(true, "Otp sent successfully");
+}
+
+export const validateOtpController = async (req:Request, res:Response, next:NextFunction)=>{
+    const otpValidated = await validateOtp(req.body.email, req.body.otp);
+
+ 
+    return new ResponseHandler(res).successDataHandler(otpValidated, "Otp validated successfully");
+}
+
+
+export const updateUserPasswordController = async (req:Request, res:Response, next:NextFunction)=>{
+    const user = await updateUserPassword(req.body.email, req.body.password);
+
+
+    return new ResponseHandler(res).successDataHandler(user, "Password updated successfully");
 }

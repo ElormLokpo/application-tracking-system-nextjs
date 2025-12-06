@@ -68,3 +68,29 @@ export const useLogin = () => {
         }
     })
 }
+
+export const useSendOtp = ()=>{
+    const dispatch: AppDispatch = useDispatch();
+    
+    return useMutation({
+        mutationFn: async (data: {email: string}) => {
+            const response = await axios.post("/auth/send-otp", data);
+            return response.data;
+        },
+        onSuccess: (data) => {
+           
+            if('success' in data && data.success){
+                 dispatch(setToken(data.data))
+                toast.success(data.message)
+
+            }else if('status' in data && data.status === 'error'){
+                toast.error(data.message)
+                
+            }
+        },
+       onError: (error) => {
+            toast.error(error.message)
+          
+        }
+    })
+}
