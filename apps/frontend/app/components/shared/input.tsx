@@ -15,6 +15,7 @@ interface InputProps<T extends FieldValues> extends VariantProps<typeof inputVar
     name: Path<T>,
     placeholder?: string,
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    maxLength?: number;
 }
 
 
@@ -43,7 +44,8 @@ export const Input = <T extends FieldValues>({
     label,
     placeholder,
     errors,
-    onChange
+    onChange,
+    maxLength
 }: InputProps<T>) => {
 
     const inputTypes: Record<string, ReactNode> = {
@@ -53,7 +55,7 @@ export const Input = <T extends FieldValues>({
                     <Typography className="mb-1" text={label} size="xs" />
                 </label>}
                 <input
-                  
+
                     placeholder={placeholder}
                     type={fieldType}
                     className={cn(inputVariants({ variant }), className, errors?.[name] && "border-red-500")}
@@ -72,15 +74,40 @@ export const Input = <T extends FieldValues>({
                     <Typography className="mb-1" text={label} size="xs" />
                 </label>}
                 <input
-                  onChange={(e) => onChange?.(e)}
+                    onChange={(e) => onChange?.(e)}
                     placeholder={placeholder}
                     type={fieldType}
                     className={cn(inputVariants({ variant }), className)}
-                   />
+                />
 
-                
+
+            </div>
+        ),
+        otp: (
+            <div>
+                {label && <label className="mb-1" htmlFor={name}>
+                    <Typography className="mb-1" text={label} size="xs" />
+                </label>}
+                <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={maxLength}
+
+                    placeholder={placeholder}
+
+                    className={cn(inputVariants({ variant }), className, errors?.[name] && "border-red-500")}
+                    {...(register ? register(name) : { onChange })} />
+
+                {
+                    errors?.[name] && (
+                        <Typography text={errors?.[name].message?.toString()} size="xs" className="text-red-500 dark:text-red-400" />
+                    )
+                }
             </div>
         )
     }
     return inputTypes[inputType]
 }
+
+

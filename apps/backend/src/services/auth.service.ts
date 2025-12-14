@@ -80,6 +80,8 @@ export const validateOtp = async (email:string, otp:string)=>{
     if(otpModel.otp !== parseInt(otp)){
         throw new CustomError(StatusCodes.UNAUTHORIZED, "Invalid otp");
     }
+
+    await OtpModel.deleteOne({user:user._id});
     return true;
 }
 
