@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/app/components/shared/themeToggler";
 import { ROUTES } from "@/app/constants";
 import { useSendOtp, useUpdatePassword, useValidateOtp } from "@/app/hooks/authHook";
 import { useRouter } from "next/navigation";
-import { JSX, useEffect, useState } from "react";
+import { JSX, useState } from "react";
 
 
 export default function ResetPasswordPage() {

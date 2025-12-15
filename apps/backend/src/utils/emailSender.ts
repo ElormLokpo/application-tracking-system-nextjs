@@ -43,12 +43,19 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
 };
 
 
-export const sendOtpEmail = async (email: string, otp: number) => {
-    const html = `
+export const sendOtpEmail = async (email: string, otp: number|string) => {
+    const otpHtml = `
         <h2>Password Reset OTP</h2>
         <p>Your OTP is: <strong>${otp}</strong></p>
         <p>This OTP will expire in 5 minutes.</p>
     `;
 
-    await sendEmail(email, 'Password Reset OTP', html);
+    const verificationHtml = `
+        <h2>Account Verification</h2>
+        <p>Click the link below to verify your account:</p>
+        <p><a href="${otp}">Verify Account</a></p>
+        <p>This link will expire in 5 minutes.</p>
+    `;
+
+    await sendEmail(email, 'Password Reset OTP', typeof otp === 'string' ? verificationHtml : otpHtml);
 };

@@ -143,3 +143,27 @@ export const useUpdatePassword = ()=>{
         }
     })
 }
+
+export const useSendVerificationEmail = ()=>{
+    return useMutation({
+        mutationFn: async (data: {email: string})=>{
+            const response = await axios.post(SERVER_ROUTES.SEND_VERIFICATION_EMAIL, data)
+            return response.data;
+        }, 
+         onSuccess: (data) => {
+           
+            if('success' in data && data.success){
+                
+                toast.success(data.message)
+
+            }else if('status' in data && data.status === 'error'){
+                toast.error(data.message)
+                
+            }
+        },
+       onError: (error) => {
+            toast.error(error.message)
+          
+        }
+    })
+}

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { LoginDto, RegisterDto } from "../dtos";
-import { loginUser, registerUser, sendPasswordResetOtp, updateUserPassword, validateOtp } from "../services";
+import { loginUser, registerUser, sendPasswordResetOtp, sendVerificationLink, updateUserPassword, validateOtp, verifyAccount } from "../services";
 import { CustomError } from "../utils/";
 import { ResponseHandler } from "../handlers";
 
@@ -48,3 +48,16 @@ export const updateUserPasswordController = async (req:Request, res:Response, ne
 
     return new ResponseHandler(res).successDataHandler(user, "Password updated successfully");
 }
+
+export const sendVerificationLinkController = async (req:Request, res:Response, next:NextFunction)=>{
+    await sendVerificationLink(req.body.email as string);
+
+    return new ResponseHandler(res).successDataHandler(true, "Verification link sent successfully");
+}
+
+
+export const verifyAccountController = async (req:Request, res:Response, next:NextFunction)=>{
+ await verifyAccount(req.params.id as string);
+
+    return res.redirect("http://localhost:3000/home");
+} 

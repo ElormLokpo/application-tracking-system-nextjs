@@ -8,7 +8,7 @@ export const OtpSchema = new Schema({
         required:true
    },
     otp:{
-        type:Number,
+        type: Schema.Types.Mixed,
         required:true
     },
     expiresAt:{

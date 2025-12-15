@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginController, registerController, sendPasswordResetOtpController, updateUserPasswordController, validateOtpController } from "../controllers";
+import { loginController, registerController, sendPasswordResetOtpController, sendVerificationLinkController, updateUserPasswordController, validateOtpController, verifyAccountController } from "../controllers";
 
 
 const router = Router();
@@ -9,5 +9,8 @@ router.post("/login", loginController);
 router.post("/send-otp", sendPasswordResetOtpController);
 router.post("/validate-otp", validateOtpController);
 router.post("/update-password", updateUserPasswordController);
+router.post("/send-verification-link", sendVerificationLinkController);
+router.get("/verify-account/:id", verifyAccountController);
+
 
 export default router;

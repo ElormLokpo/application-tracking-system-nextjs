@@ -2,6 +2,7 @@ import { Role, StatusCodes } from "../../../../packages/types";
 import { LoginDto, RegisterDto, UserResponse } from "../dtos";
 import { UserModel, OtpModel } from "../models";
 import {  sendOtpEmail,hashPassword, verifyPassword, CustomError, generateToken } from "../utils";
+import { v4 as uuidv4 } from "uuid";
 
 
 export const registerUser = async (request: RegisterDto)=>{
@@ -94,5 +95,44 @@ export const updateUserPassword = async (email:string, password:string)=>{
     const hashedPassword = await hashPassword(password);
     user.password = hashedPassword;
     await user.save();
+    return true;
+}
+
+export const sendVerificationLink = async (email:string)=>{
+
+   
+    const user = await UserModel.findOne({email});
+    if(!user){
+        throw new CustomError(StatusCodes.NOT_FOUND, `User with email ${email} not found`);
+    }
+
+
+    const otp:string = uuidv4();
+    const expiresAt = Date.now() + 5 * 60 * 1000;
+
+    const verificationLink = `http://localhost:3000/verify-account?id=${otp}`;
+    
+     await OtpModel.create({user:user._id, otp, expiresAt});
+     await sendOtpEmail(user.email as string, verificationLink);
+     return true;
+}
+
+
+export const verifyAccount = async (id:string)=>{
+    const otpModel = await OtpModel.findOne({otp:id});
+    if(!otpModel){
+        throw new CustomError(StatusCodes.NOT_FOUND, `Otp not found`);
+    }
+    if(Date.now() > otpModel.expiresAt){
+        throw new CustomError(StatusCodes.UNAUTHORIZED, "Otp expired");
+    }
+
+    const userModel = await UserModel.findOne({user:otpModel.user});
+    if(!userModel){
+        throw new CustomError(StatusCodes.NOT_FOUND, `User not found`);
+    }
+    userModel.isVerified = true;
+    await userModel.save();
+    await OtpModel.deleteOne({otp:id});
     return true;
 }
