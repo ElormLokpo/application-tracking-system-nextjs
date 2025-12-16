@@ -110,7 +110,7 @@ export const sendVerificationLink = async (email:string)=>{
     const otp:string = uuidv4();
     const expiresAt = Date.now() + 5 * 60 * 1000;
 
-    const verificationLink = `http://localhost:3000/verify-account?id=${otp}`;
+    const verificationLink = `http://localhost:5001/api/auth/verify-account/${otp}`;
     
      await OtpModel.create({user:user._id, otp, expiresAt});
      await sendOtpEmail(user.email as string, verificationLink);
@@ -119,6 +119,8 @@ export const sendVerificationLink = async (email:string)=>{
 
 
 export const verifyAccount = async (id:string)=>{
+
+    console.log("Id from link:", id)
     const otpModel = await OtpModel.findOne({otp:id});
     if(!otpModel){
         throw new CustomError(StatusCodes.NOT_FOUND, `Otp not found`);
@@ -127,7 +129,7 @@ export const verifyAccount = async (id:string)=>{
         throw new CustomError(StatusCodes.UNAUTHORIZED, "Otp expired");
     }
 
-    const userModel = await UserModel.findOne({user:otpModel.user});
+    const userModel = await UserModel.findOne({_id:otpModel.user});
     if(!userModel){
         throw new CustomError(StatusCodes.NOT_FOUND, `User not found`);
     }

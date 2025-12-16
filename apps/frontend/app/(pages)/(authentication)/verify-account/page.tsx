@@ -18,9 +18,6 @@ export const VerifyAccountPage = () => {
         2: <VerifyLinkSentSuccessComponent />
     }
 
-
-
-
     return verificationSteps[steps]
 }
 
@@ -60,8 +57,6 @@ const VerifyAccountComponent = ({setSteps}: {setSteps: (steps: number) => void})
                 <div className="mb-5">
                     <Input onChange={(e) => setEmail(e.target.value)} inputType="textNForm" fieldType="text" placeholder="Enter email" name="email" variant="auth" />
                 </div>
-
-
 
                 <div className="mb-1">
                     <Button isDisabled={isPending || !email} isLoading={isPending} loadingText={<Typography className="dark:text-black font-semibold text-white" text="Sending verification link..." />} onClick={() => submitHandler()} type="button" variant="auth" className="w-full">
