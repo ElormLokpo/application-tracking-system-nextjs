@@ -13,6 +13,7 @@ import { storeRegisterData } from "@/app/redux/slices/registerSlice";
 import { AppDispatch, RootState } from "@/app/redux";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/app/constants";
+import Link from "next/link";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(false)
@@ -64,7 +65,7 @@ export default function AuthPage() {
                     </div>
 
                     <div className="mb-4">
-                        {isLogin && <button type="button"><Typography className="text-center" text="Forgot password?" size="xs" /></button>}
+                        {isLogin && <Link className="hover:cursor-pointer" href={ROUTES.RESET_PASSWORD}><Typography className="text-center underline" text="Forgot password?" size="xs" /></Link>}
                     </div>
 
                     <div className="mb-1">
