@@ -10,9 +10,10 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
     type?: "button" | "submit" | "reset";
     isLoading?:boolean;
     loadingText?: string | ReactNode;
+    isDisabled?:boolean
 }
 
-const buttonVariants = cva("", {
+const buttonVariants = cva("disabled:cursor-not-allowed disabled:dark:bg-stone-400 disabled:bg-stone-600", {
     variants: {
         variant: {
             default: "",
@@ -26,9 +27,9 @@ const buttonVariants = cva("", {
     }
 })
 
-export const Button = ({ variant, className, children, onClick, type, isLoading, loadingText }: ButtonProps) => {
+export const Button = ({ variant, className,isDisabled, children, onClick, type, isLoading, loadingText }: ButtonProps) => {
     return (
-        <button type={type} className={cn(buttonVariants({ variant }), className)} onClick={onClick}>
+        <button disabled={isDisabled} type={type} className={cn(buttonVariants({ variant }), className)} onClick={onClick}>
             {isLoading ? loadingText : children}
         </button>
     )

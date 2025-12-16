@@ -36,7 +36,7 @@ export default function RolePage() {
     const registerData = useSelector((state: RootState) => state.register)
     const { mutate: registerUser, isPending } = useRegister();
 
-    // Redirect to auth page if email or password is missing
+   
     useEffect(() => {
         if (!registerData.email || !registerData.password) {
             router.push("/auth");
