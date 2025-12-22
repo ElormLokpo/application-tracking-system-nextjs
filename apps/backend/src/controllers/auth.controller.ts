@@ -61,3 +61,7 @@ export const verifyAccountController = async (req:Request, res:Response, next:Ne
 
     return res.redirect("http://localhost:3000/home");
 } 
+
+export const sampleTestAuthorizationController = async (req:Request, res:Response, next:NextFunction)=>{
+    return new ResponseHandler(res).successDataHandler(true, "Test authorization successfully");
+}
