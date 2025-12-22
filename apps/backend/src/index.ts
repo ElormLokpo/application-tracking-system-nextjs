@@ -34,6 +34,7 @@ connectDb();
 
 APP.use("/api/auth", authRoutes);
 
+
 APP.use(errorMiddleware);
 
 APP.listen(PORT, ()=>console.log(`Server running on PORT:${PORT}`))
