@@ -6,6 +6,8 @@ import { AppDispatch } from "../redux";
 import { setToken } from "../redux/slices/authSlice";
 import { toast } from "sonner";
 import { SERVER_ROUTES } from "../constants";
+import { useGoogleLogin } from '@react-oauth/google';
+
 
 export type AuthResponse = 
   | { success: true; message: string; data: unknown }
@@ -166,4 +168,12 @@ export const useSendVerificationEmail = ()=>{
           
         }
     })
+}
+
+
+
+export const useGoogleAuth = ()=>{
+    return useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+      });
 }

@@ -1,3 +1,4 @@
+import GoogleProvider from "./google-provider"
 import { QueryProvider } from "./query-provider"
 import { ReduxProvider } from "./redux-provider"
 import ThemeProvider from "./theme-provider"
@@ -8,8 +9,10 @@ export default function RootProvider({ children }: { children: React.ReactNode }
     <ReduxProvider>
       <QueryProvider>
         <ThemeProvider>
-          <Toaster />
-          {children}
+          <GoogleProvider>
+            <Toaster />
+            {children}
+          </GoogleProvider>
         </ThemeProvider>
       </QueryProvider>
     </ReduxProvider>
