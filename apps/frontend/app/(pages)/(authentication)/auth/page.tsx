@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AuthUserSchemaType, AuthUserSchema } from "../../../../../../packages/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useLogin } from "@/app/hooks/authHook";
+import { useGoogleAuth, useLogin } from "@/app/hooks/authHook";
 import { useDispatch, useSelector } from "react-redux";
 import { storeRegisterData } from "@/app/redux/slices/registerSlice";
 import { AppDispatch, RootState } from "@/app/redux";
@@ -26,6 +26,8 @@ export default function AuthPage() {
 
     const { mutateAsync: loginUser, isPending } = useLogin()
 
+    const googleAuthLogin = useGoogleAuth()
+
     const registerData = useSelector((state: RootState) => state.register)
 
 
@@ -40,6 +42,10 @@ export default function AuthPage() {
             dispatch(storeRegisterData({ ...registerData, ...data }))
             router.push(ROUTES.ROLE)
         }
+    }
+
+    const handleGoogleAuth = ()=>{
+        googleAuthLogin();
     }
 
     return (
@@ -79,7 +85,7 @@ export default function AuthPage() {
                     </div>
 
                     <div>
-                        <Button type="button" variant="google" className="w-full flex items-center justify-center">
+                        <Button onClick={handleGoogleAuth} type="button" variant="google" className="w-full flex items-center justify-center">
                             <div className="flex gap-2 items-center">
                                 <FcGoogle />
                                 <Typography className="font-semibold dark:text-white" text="Continue with Google" />

@@ -6,6 +6,8 @@ import { AppDispatch } from "../redux";
 import { setToken } from "../redux/slices/authSlice";
 import { toast } from "sonner";
 import { SERVER_ROUTES } from "../constants";
+import { useGoogleLogin } from '@react-oauth/google';
+
 
 export type AuthResponse = 
   | { success: true; message: string; data: unknown }
@@ -163,6 +165,25 @@ export const useSendVerificationEmail = ()=>{
         },
        onError: (error) => {
             toast.error(error.message)
+          
+        }
+    })
+}
+
+
+
+export const useGoogleAuth = ()=>{
+    return useGoogleLogin({
+        flow:"auth_code",
+        onSuccess: async tokenResponse =>{
+            const response =await axios.post(SERVER_ROUTES.GOOGLE_LOGIN, {code: tokenResponse?.code})
+    
+            //don't forget to decoed the token, check the role and redirect to the role page.
+
+            toast.success(response.data.message)
+        },
+        onError: () => {
+            toast.error("Error connecting to  google, try again later")
           
         }
     })
