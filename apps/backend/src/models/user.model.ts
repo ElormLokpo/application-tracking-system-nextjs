@@ -17,7 +17,7 @@ export const UserSchema = new Schema({
     role:{
         type:String,
         enum:Object.values(Role),
-        default: Role.ADMIN
+        // default: Role.ADMIN
     },
     isVerified:{
         type:Boolean,

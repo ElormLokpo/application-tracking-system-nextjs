@@ -45,7 +45,6 @@ export default function AuthPage() {
     }
 
     const handleGoogleAuth = ()=>{
-        console.log("google auth")
         googleAuthLogin();
     }
 

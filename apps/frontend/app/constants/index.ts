@@ -11,5 +11,6 @@ export const SERVER_ROUTES = {
     SEND_OTP:"/auth/send-otp",
     VALIDATE_OTP:"/auth/validate-otp",
     UPDATE_PASSWORD:"/auth/update-password",
-    SEND_VERIFICATION_EMAIL:"/auth/send-verification-link"
+    SEND_VERIFICATION_EMAIL:"/auth/send-verification-link",
+    GOOGLE_LOGIN:"/auth/google-login"
 }

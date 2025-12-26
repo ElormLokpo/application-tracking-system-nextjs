@@ -174,6 +174,17 @@ export const useSendVerificationEmail = ()=>{
 
 export const useGoogleAuth = ()=>{
     return useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-      });
+        flow:"auth_code",
+        onSuccess: async tokenResponse =>{
+            const response =await axios.post(SERVER_ROUTES.GOOGLE_LOGIN, {code: tokenResponse?.code})
+    
+            //don't forget to decoed the token, check the role and redirect to the role page.
+
+            toast.success(response.data.message)
+        },
+        onError: () => {
+            toast.error("Error connecting to  google, try again later")
+          
+        }
+    })
 }
