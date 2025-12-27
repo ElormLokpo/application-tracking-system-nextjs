@@ -16,9 +16,9 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
 const buttonVariants = cva("disabled:cursor-not-allowed disabled:dark:bg-stone-400 disabled:bg-stone-600", {
     variants: {
         variant: {
-            default: "",
-            auth: "dark:bg-white bg-stone-900 py-3.5 rounded-md text-xs dark:text-black hover:bg-stone-700 hover:cursor-pointer hover:dark:bg-stone-100  text-white",
-            google: "border-2 border-stone-900 dark:border-none hover:bg-stone-100  dark:bg-stone-900 py-3.5 rounded-md text-xs  dark:hover:bg-stone-700 hover:cursor-pointer dark:text-white",
+            default: "transition-colors duration-300 ease-out",
+            auth: "dark:bg-white bg-stone-900 py-3.5 rounded-md  transition-colors duration-500 ease-out text-xs dark:text-black hover:bg-stone-700 hover:cursor-pointer hover:dark:bg-stone-100  text-white",
+            google: "border-2 border-stone-900 dark:border-none  transition-colors duration-500 ease-out hover:bg-stone-100  dark:bg-stone-900 py-3.5 rounded-md text-xs  dark:hover:bg-stone-700 hover:cursor-pointer dark:text-white",
 
         }
     },

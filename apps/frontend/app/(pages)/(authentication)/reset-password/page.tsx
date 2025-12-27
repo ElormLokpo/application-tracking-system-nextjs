@@ -7,7 +7,7 @@ import { ROUTES } from "@/app/constants";
 import { useSendOtp, useUpdatePassword, useValidateOtp } from "@/app/hooks/authHook";
 import { useRouter } from "next/navigation";
 import { JSX, useState } from "react";
-
+import { motion as m } from "motion/react"
 
 export default function ResetPasswordPage() {
     const [steps, setSteps] = useState<number>(1);
@@ -94,7 +94,14 @@ const ValidateOtpComponent = ({ email, setSteps }: IValidateOtpComponent) => {
     }
 
 
-    return <div className="gap-5  flex items-center justify-center h-screen">
+    return <m.div
+
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        exit={{ opacity: 0, y: -40 }}
+
+        className="gap-5  flex items-center justify-center h-screen">
         <div className="flex flex-col items-center justify-center">
             <div className="mb-4 flex items-center justify-center">
                 <ThemeToggle />
@@ -124,7 +131,7 @@ const ValidateOtpComponent = ({ email, setSteps }: IValidateOtpComponent) => {
                 </div>
             </div>
         </div>
-    </div>
+    </m.div>
 }
 
 
@@ -147,7 +154,13 @@ const UpdatePasswordComponent = ({ email }: IUpdatePasswordComponent) => {
 
 
     return (
-        <div className="gap-5  flex items-center justify-center h-screen">
+        <m.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -40 }}
+
+            className="gap-5  flex items-center justify-center h-screen">
             <div className="flex flex-col items-center justify-center">
                 <div className="mb-4 flex items-center justify-center">
                     <ThemeToggle />
@@ -177,6 +190,6 @@ const UpdatePasswordComponent = ({ email }: IUpdatePasswordComponent) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </m.div>
     )
 }
