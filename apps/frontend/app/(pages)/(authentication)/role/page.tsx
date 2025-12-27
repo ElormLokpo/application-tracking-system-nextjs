@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { Role } from "../../../../../../packages/types";
 import { clearRegisterData } from "@/app/redux/slices/registerSlice";
 
+import {motion as m} from "motion/react"
+
 
 export default function RolePage() {
     const [fullname, setFullname] = useState<string>("");
@@ -59,7 +61,13 @@ export default function RolePage() {
     }
 
     return (
-        <div className="gap-5  flex items-center justify-center h-screen">
+        <m.div 
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -40 }}
+
+        className="gap-5  flex items-center justify-center h-screen">
             <div className="flex flex-col items-center justify-center">
                 <div className="mb-4 flex items-center justify-center">
                     <ThemeToggle />
@@ -96,7 +104,7 @@ export default function RolePage() {
                     </div>
                 </div>
             </div>
-        </div>
+        </m.div>
     )
 }
 
@@ -104,7 +112,7 @@ export default function RolePage() {
 const RoleCard = ({ currentRole, setCurrentRole, roleValue, icon, title }: { currentRole: Role, setCurrentRole: React.Dispatch<React.SetStateAction<Role>>, roleValue: Role, icon: JSX.Element, title: string }) => {
 
 
-    const defaultStyle = "w-[auto] hover:dark:bg-stone-800 hover:cursor-pointer hover:bg-stone-100 flex items-center gap-2 flex-col border-stone-900  dark:border-stone-200 p-5 rounded-md";
+    const defaultStyle = "w-[auto] hover:dark:bg-stone-800 hover:cursor-pointer transition-border duration-400 ease-out hover:bg-stone-100 flex items-center gap-2 flex-col border-stone-900  dark:border-stone-200 p-5 rounded-md";
     return <button type="button" onClick={() => setCurrentRole(roleValue)} className={`${currentRole === roleValue ? `${defaultStyle} border-3` : `${defaultStyle} border-1`}`}>
         <div>
             {icon}

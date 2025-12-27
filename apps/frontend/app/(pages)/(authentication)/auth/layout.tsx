@@ -1,7 +1,8 @@
-
+"use client"
 
 import { ThemeToggle } from "@/app/components/shared/themeToggler";
 import Image from "next/image";
+import { motion as m } from "motion/react"
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -12,9 +13,15 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 {children}
             </div>
-            <div className="hidden xl:block">
+            <m.div
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                exit={{ opacity: 0, x: -40 }}
+
+                className="hidden xl:block">
                 <Image className="rounded-lg" src="/auth.jpg" alt="auth" width={500} height={500} />
-            </div>
+            </m.div>
         </div>
     )
 }
