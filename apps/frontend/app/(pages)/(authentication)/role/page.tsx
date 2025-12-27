@@ -49,9 +49,7 @@ export default function RolePage() {
             role: currentRole,
             fullname: fullname
         }
-
-
-
+        
         if (finalRegisterData.role || finalRegisterData.fullname) {
             await registerUser(finalRegisterData)
         }

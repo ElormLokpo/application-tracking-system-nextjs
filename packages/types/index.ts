@@ -72,3 +72,11 @@ export const RegisterUserSchema = AuthUserSchema.extend({
 })
 
 export type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>
+
+
+export interface IUserRedux{
+    email:string, 
+    fullname:string, 
+    id:string, 
+    role: string
+}
