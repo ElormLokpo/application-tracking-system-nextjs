@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from "@/app/redux";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/app/constants";
 import Link from "next/link";
+import { motion as m } from "motion/react"
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(false)
@@ -44,12 +45,18 @@ export default function AuthPage() {
         }
     }
 
-    const handleGoogleAuth = ()=>{
+    const handleGoogleAuth = () => {
         googleAuthLogin();
     }
 
     return (
-        <div className="flex items-center justify-center flex-col">
+        <m.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -40 }}
+
+            className="flex items-center justify-center flex-col">
             <div className="mb-5">
                 <div className="mb-1 text-center">
                     <Typography className="roboto-font" text={isLogin ? "Log into account" : "Create an account"} size={"2xl"} />
@@ -101,6 +108,6 @@ export default function AuthPage() {
 
 
 
-        </div>
+        </m.div>
     )
 }

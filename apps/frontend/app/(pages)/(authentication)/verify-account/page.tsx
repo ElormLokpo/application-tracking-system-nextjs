@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/app/components/shared/themeToggler"
 import { useSendVerificationEmail } from "@/app/hooks/authHook"
 import { ReactNode, useState } from "react"
 import { BsFillPatchCheckFill } from "react-icons/bs";
-
+import { motion as m } from "motion/react"
 
 
 export const VerifyAccountPage = () => {
@@ -23,7 +23,7 @@ export const VerifyAccountPage = () => {
 
 
 
-const VerifyAccountComponent = ({setSteps}: {setSteps: (steps: number) => void}) => {
+const VerifyAccountComponent = ({ setSteps }: { setSteps: (steps: number) => void }) => {
     const [email, setEmail] = useState<string>("")
 
     const { mutate: sendVerificationEmail, isPending } = useSendVerificationEmail()
@@ -37,7 +37,13 @@ const VerifyAccountComponent = ({setSteps}: {setSteps: (steps: number) => void})
     //verify with any email.
 
 
-    return <div className="gap-5  flex items-center justify-center h-screen">
+    return <m.div
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        exit={{ opacity: 0, y: -40 }}
+
+        className="gap-5  flex items-center justify-center h-screen">
         <div className="flex flex-col items-center justify-center">
             <div className="mb-4 flex items-center justify-center">
                 <ThemeToggle />
@@ -65,12 +71,18 @@ const VerifyAccountComponent = ({setSteps}: {setSteps: (steps: number) => void})
                 </div>
             </div>
         </div>
-    </div>
+    </m.div>
 }
 
 
 const VerifyLinkSentSuccessComponent = () => {
-    return <div className="gap-5  flex items-center justify-center h-screen">
+    return <m.div
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        exit={{ opacity: 0, y: -40 }}
+
+        className="gap-5  flex items-center justify-center h-screen">
         <div className="flex flex-col items-center justify-center">
             <div className="mb-4 flex items-center justify-center">
                 <ThemeToggle />
@@ -86,9 +98,9 @@ const VerifyLinkSentSuccessComponent = () => {
                 </div>
             </div>
 
-           
+
         </div>
-    </div>
+    </m.div>
 }
 
 
