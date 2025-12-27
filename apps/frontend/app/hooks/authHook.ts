@@ -3,15 +3,22 @@ import { useMutation } from "@tanstack/react-query";
 import { axiosInstance as axios } from "../api";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux";
-import { setToken } from "../redux/slices/authSlice";
+import { setToken, setUser } from "../redux/slices/authSlice";
 import { toast } from "sonner";
 import { SERVER_ROUTES } from "../constants";
 import { useGoogleLogin } from '@react-oauth/google';
-
+import { jwtDecode} from "jwt-decode"
 
 export type AuthResponse = 
   | { success: true; message: string; data: unknown }
   | { status: "error"; message: string; code: string };
+
+  const destructureToken = (token: unknown, dispatch: AppDispatch) => {
+   
+    const decodedToken:unknown = jwtDecode(token as string);
+    dispatch(setUser(decodedToken?.user))
+    console.log(decodedToken)
+  };
 
 
 export const useRegister = () => {
@@ -26,6 +33,7 @@ export const useRegister = () => {
           onSuccess: (data) => {
            
             dispatch(setToken(data?.data))
+            destructureToken(data?.data, dispatch)
             
             if(data?.success){
                 toast.success(data.message)
@@ -58,6 +66,7 @@ export const useLogin = () => {
            
             if('success' in data && data.success){
                  dispatch(setToken(data.data))
+                 destructureToken(data?.data, dispatch)
                 toast.success(data.message)
 
             }else if('status' in data && data.status === 'error'){
@@ -175,7 +184,7 @@ export const useSendVerificationEmail = ()=>{
 export const useGoogleAuth = ()=>{
     return useGoogleLogin({
         flow:"auth_code",
-        onSuccess: async tokenResponse =>{
+        onSuccess: async (tokenResponse) =>{
             const response =await axios.post(SERVER_ROUTES.GOOGLE_LOGIN, {code: tokenResponse?.code})
     
             //don't forget to decoed the token, check the role and redirect to the role page.
