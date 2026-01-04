@@ -1,0 +1,1 @@
+pnpm run lint || (echo '❌ Linting failed. Fix errors before pushing.' && exit 1)
