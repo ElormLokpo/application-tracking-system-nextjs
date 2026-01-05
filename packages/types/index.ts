@@ -1,20 +1,17 @@
-import z from "zod"
+import z from "zod";
 
 export enum Role {
-    APPLICANT = "APPLICANT",
-    ADMIN = "ADMIN",
-    HIRING_MANAGER = "HIRING_MANAGER"
+  APPLICANT = "APPLICANT",
+  ADMIN = "ADMIN",
+  HIRING_MANAGER = "HIRING_MANAGER",
 }
 
-
 export enum StatusCodes {
-  
   CONTINUE = 100,
   SWITCHING_PROTOCOLS = 101,
   PROCESSING = 102,
   EARLY_HINTS = 103,
 
-  
   OK = 200,
   CREATED = 201,
   ACCEPTED = 202,
@@ -23,7 +20,6 @@ export enum StatusCodes {
   RESET_CONTENT = 205,
   PARTIAL_CONTENT = 206,
 
- 
   MULTIPLE_CHOICES = 300,
   MOVED_PERMANENTLY = 301,
   FOUND = 302,
@@ -31,7 +27,6 @@ export enum StatusCodes {
   NOT_MODIFIED = 304,
   TEMPORARY_REDIRECT = 307,
   PERMANENT_REDIRECT = 308,
-
 
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
@@ -48,7 +43,6 @@ export enum StatusCodes {
   UNPROCESSABLE_ENTITY = 422,
   TOO_MANY_REQUESTS = 429,
 
- 
   INTERNAL_SERVER_ERROR = 500,
   NOT_IMPLEMENTED = 501,
   BAD_GATEWAY = 502,
@@ -56,27 +50,24 @@ export enum StatusCodes {
   GATEWAY_TIMEOUT = 504,
 }
 
-
-
-
 export const AuthUserSchema = z.object({
-    email: z.email("Invalid email address").min(1,{message:"Email is required"}),
-    password: z.string().min(1,{message:"Password is required"}),
-})
+  email: z
+    .email("Invalid email address")
+    .min(1, { message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
 
-export type AuthUserSchemaType = z.infer<typeof AuthUserSchema>
+export type AuthUserSchemaType = z.infer<typeof AuthUserSchema>;
 
 export const RegisterUserSchema = AuthUserSchema.extend({
-    fullname: z.string().min(1, { message: "Fullname is required" })
-   
-})
+  fullname: z.string().min(1, { message: "Fullname is required" }),
+});
 
-export type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>
+export type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 
-
-export interface IUserRedux{
-    email:string, 
-    fullname:string, 
-    id:string, 
-    role: string
+export interface IUserRedux {
+  email: string;
+  fullname: string;
+  id: string;
+  role: string;
 }

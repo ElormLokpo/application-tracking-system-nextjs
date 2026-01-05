@@ -1,2 +1,2 @@
-export * from "./user.model"
-export * from "./otp"
+export * from "./user.model";
+export * from "./otp";

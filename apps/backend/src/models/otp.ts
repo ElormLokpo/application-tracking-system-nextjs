@@ -1,21 +1,19 @@
-import {Schema, model} from "mongoose"
-
+import { Schema, model } from "mongoose";
 
 export const OtpSchema = new Schema({
-   user:{
-        type: Schema.Types.ObjectId,
-        ref:"User",
-        required:true
-   },
-    otp:{
-        type: Schema.Types.Mixed,
-        required:true
-    },
-    expiresAt:{
-        type:Number,
-        required:true
-    }
-})
-
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  otp: {
+    type: Schema.Types.Mixed,
+    required: true,
+  },
+  expiresAt: {
+    type: Number,
+    required: true,
+  },
+});
 
 export const OtpModel = model("Otp", OtpSchema);
