@@ -1,2 +1,2 @@
-export * from "./error.middleware"
-export * from "./authorization.middlewre"
+export * from "./error.middleware";
+export * from "./authorization.middlewre";

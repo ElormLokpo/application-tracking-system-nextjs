@@ -1,12 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit"
-import {persistStore} from "redux-persist"
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore } from "redux-persist";
 import { persistedReducer } from "./slices";
 
 export const store = configureStore({
-    reducer: persistedReducer
-})
+  reducer: persistedReducer,
+});
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
