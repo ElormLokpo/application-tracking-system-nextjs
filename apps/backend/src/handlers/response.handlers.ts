@@ -1,38 +1,37 @@
 import { Response } from "express";
 
+export class ResponseHandler {
+  response: Response;
 
-export class ResponseHandler{
-    response :Response 
-    
-    constructor(response:Response){
-        this.response = response;
-    }
+  constructor(response: Response) {
+    this.response = response;
+  }
 
-    successHandler(message:string){
-        this.response.status(200).json({
-            success:true,
-            message
-        })
+  successHandler(message: string) {
+    this.response.status(200).json({
+      success: true,
+      message,
+    });
 
-         return this;
-    }
+    return this;
+  }
 
-    successDataHandler<T>(data:T, message:string){
-        this.response.status(200).json({
-            success:true,
-            message,
-            data
-        })
-        
-        return this;
-    }
+  successDataHandler<T>(data: T, message: string) {
+    this.response.status(200).json({
+      success: true,
+      message,
+      data,
+    });
 
-    errorDataHandler( message:string){
-        this.response.status(200).json({
-            success:false,
-            message
-        })
+    return this;
+  }
 
-        return this;
-    }
+  errorDataHandler(message: string) {
+    this.response.status(200).json({
+      success: false,
+      message,
+    });
+
+    return this;
+  }
 }

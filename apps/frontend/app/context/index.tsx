@@ -1,12 +1,9 @@
-"use client"
-import {createContext} from "react"
-
+"use client";
+import { createContext } from "react";
 
 interface IThemeContext {
-    theme: string;
-    setTheme: (theme: string) => void;
+  theme: string;
+  setTheme: (theme: string) => void;
 }
 
-export const ThemeContext = createContext<IThemeContext|undefined>(undefined);
-
-
+export const ThemeContext = createContext<IThemeContext | undefined>(undefined);
